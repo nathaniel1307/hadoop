@@ -14,7 +14,7 @@ public class Temperature {
 	public static class WCMapper extends Mapper<Object, Text, Text, IntWritable>{	
         
         private Text keyField = new Text();
-        private IntWritable values = new IntWritable();
+        private IntWritable valueField = new IntWritable();
 
 		
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
@@ -24,8 +24,8 @@ public class Temperature {
             if(record[0].equals("UK000056225") || record[0].equals("UK000003377")){
 				if(record[2].equals("TMAX") || record[2].equals("TMIN")){
 					keyField.set(record[0] + "-" + record[1] + "-" + record[2]);
-					values.set(Integer.parseInt(record[3]));
-					context.write(keyField, values);
+					valueField.set(Integer.parseInt(record[3]));
+					context.write(keyField, valueField);
 				}
 			}
 		}
