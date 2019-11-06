@@ -13,7 +13,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 public class Temperature {
 	public static class WCMapper extends Mapper<Object, Text, Text, IntWritable>{	
         
-        private Text key = new Text();
+        private Text keyField = new Text();
         private IntWritable value = new IntWritable();
 
 		
@@ -23,9 +23,9 @@ public class Temperature {
             
             if(record[0].equals("UK000056225") || record[0].equals("UK000003377")){
 				if(record[2].equals("TMAX") || record[2].equals("TMIN")){
-					key.set(record[0] + "-" + record[1] + "-" + record[2]);
+					keyField.set(record[0] + "-" + record[1] + "-" + record[2]);
 					value.set(Integer.parseInt(record[3]));
-					context.write(key, value);
+					context.write(keyField, value);
 				}
 			}
 		}
