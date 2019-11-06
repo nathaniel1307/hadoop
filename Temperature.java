@@ -34,7 +34,7 @@ public class Temperature {
     
 	public static class WCReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
 	
-        //private IntWritable result = new IntWritable();
+        private IntWritable result = new IntWritable();
         //private IntWritable tempDiffIW = new IntWritable();
 		
 		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
