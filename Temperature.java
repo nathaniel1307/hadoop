@@ -9,6 +9,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import java.lang.Math;
 
 public class Temperature {
 	public static class WCMapper extends Mapper<Object, Text, Text, IntWritable>{	
@@ -33,10 +34,19 @@ public class Temperature {
     
 	public static class WCReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
 	
-		private IntWritable result = new IntWritable();
+        private IntWritable result = new IntWritable();
+        private IntWritable tempDiffIW = new IntWritable();
 		
 		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
-			context.write(key, values.iterator().next());
+            //context.write(key, values.iterator().next());
+            int temp1 = values.iterator().next().get();
+			if(values.iterator().hasNext()){
+				int TempDiff = temp1 - values.iterator().next().get();
+				
+				tempDiffIW.set(Math.abs(tempDiff));
+				
+				context.write(key, tempDiffIW);
+			}			
 		}
 	}
 
