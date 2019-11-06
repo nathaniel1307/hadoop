@@ -19,14 +19,14 @@ public class Temperature {
 		
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 			
-			String Line = value.toString();
-			String[] row = Line.split(",");
+			//String row = value.toString();
+			String[] rows = (value.toString()).split(",");
             
             
-			if(row[0].equals("UK000056225") || row[0].equals("UK000003377")){
-				if(row[2].equals("TMAX") || row[2].equals("TMIN")){
-					text.set(row[0] + "-" + row[1]);
-					val.set(Integer.parseInt(row[3]));
+			if(rows[0].equals("UK000056225") || rows[0].equals("UK000003377")){
+				if(rows[2].equals("TMAX") || rows[2].equals("TMIN")){
+					text.set(rows[0] + "-" + rows[1]);
+					val.set(Integer.parseInt(rows[3]));
 					context.write(text, val);
 				}
 			}
@@ -42,7 +42,6 @@ public class Temperature {
 			if(values.iterator().hasNext()){
                 IntWritable tempDif = new IntWritable();
 				tempDif.set(Math.abs(tempMax - values.iterator().next().get()));
-				
 				context.write(key, tempDif);
 			}			
 		}
