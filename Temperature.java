@@ -34,18 +34,17 @@ public class Temperature {
 	}
     
 	public static class TempReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
-		
-		//private IntWritable result = new IntWritable();
+
 		
 		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
 			
-			int TempA = values.iterator().next().get();
+			int tempMax = values.iterator().next().get();
 			if(values.iterator().hasNext()){
-				int TempDiff = TempA - values.iterator().next().get();
-				IntWritable TempDiffIW = new IntWritable();
-				TempDiffIW.set(Math.abs(TempDiff));
+				int tempDiff = tempMax - values.iterator().next().get();
+				IntWritable tempDiffIW = new IntWritable();
+				tempDiffIW.set(Math.abs(tempDiff));
 				
-				context.write(key, TempDiffIW);
+				context.write(key, tempDiffIW);
 			}			
 		}
 	}
