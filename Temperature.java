@@ -43,7 +43,8 @@ public class Temperature {
 			// for (IntWritable val : values) {
 			// 	sum += val.get();
 			// }
-			// result.set(sum);
+            // result.set(sum);
+            values.iterator.next();
 			context.write(key, null);
 		}
 	}
