@@ -19,13 +19,17 @@ public class Temperature {
 
 		
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-            String line = value.toString();
-            String[] words = line.split(",");
-            if((words[0].equals("UK000056225"))||(words[0].equals("UK000003377"))){
-                Text.set(words[0]);
-                Text.set(words[1]);
-                context.write( col1 , col2 );
-            }
+            String Line = value.toString();
+            String[] SplitLine = Line.split(",");
+            
+            if(SplitLine[0].equals("UK000056225") || SplitLine[0].equals("UK000003377")){
+				if(SplitLine[2].equals("TMAX") || SplitLine[2].equals("TMIN")){
+					text.set(SplitLine[0] + "-" + SplitLine[1] + "-" + SplitLine[2]);
+					val.set(Integer.parseInt(SplitLine[3]));
+					context.write(text, val);
+				}
+				
+			}
 
 
 		}
