@@ -20,13 +20,13 @@ public class Temperature {
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 			
 			String Line = value.toString();
-			String[] SplitLine = Line.split(",");
+			String[] row = Line.split(",");
             
             
-			if(SplitLine[0].equals("UK000056225") || SplitLine[0].equals("UK000003377")){
-				if(SplitLine[2].equals("TMAX") || SplitLine[2].equals("TMIN")){
-					text.set(SplitLine[0] + "-" + SplitLine[1]);
-					val.set(Integer.parseInt(SplitLine[3]));
+			if(row[0].equals("UK000056225") || row[0].equals("UK000003377")){
+				if(row[2].equals("TMAX") || row[2].equals("TMIN")){
+					text.set(row[0] + "-" + row[1]);
+					val.set(Integer.parseInt(row[3]));
 					context.write(text, val);
 				}
 			}
@@ -40,10 +40,10 @@ public class Temperature {
 			
 			int tempMax = values.iterator().next().get();
 			if(values.iterator().hasNext()){
-                IntWritable tempDiffIW = new IntWritable();
-				tempDiffIW.set(Math.abs(tempMax - values.iterator().next().get()));
+                IntWritable tempDif = new IntWritable();
+				tempDif.set(Math.abs(tempMax - values.iterator().next().get()));
 				
-				context.write(key, tempDiffIW);
+				context.write(key, tempDif);
 			}			
 		}
 	}
