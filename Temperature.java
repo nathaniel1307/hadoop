@@ -19,9 +19,7 @@ public class Temperature {
 		
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 			
-			//String row = value.toString();
 			String[] rows = (value.toString()).split(",");
-            
             
 			if(rows[0].equals("UK000056225") || rows[0].equals("UK000003377")){
 				if(rows[2].equals("TMAX") || rows[2].equals("TMIN")){
@@ -35,21 +33,20 @@ public class Temperature {
     
 	public static class TempReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
 
-		
 		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
 			
 			int tempMax = values.iterator().next().get();
 			if(values.iterator().hasNext()){
-                IntWritable tempDif = new IntWritable();
-				tempDif.set(Math.abs(tempMax - values.iterator().next().get()));
-				context.write(key, tempDif);
+                IntWritable tempDifference = new IntWritable();
+				tempDifference.set(Math.abs(tempMax - values.iterator().next().get()));
+				context.write(key, tempDifference);
 			}			
 		}
 	}
 
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		Job job = Job.getInstance(conf, "word count");
+		Job job = Job.getInstance(conf, "Temperature");
 		job.setJarByClass(Temperature.class);
 		job.setMapperClass(TempMapper.class);
 		job.setReducerClass(TempReducer.class);
