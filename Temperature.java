@@ -12,7 +12,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import java.lang.Math;
 
 public class Temperature {
-    public static class WCMapper extends Mapper<Object, Text, Text, IntWritable>{
+    public static class TempMapper extends Mapper<Object, Text, Text, IntWritable>{
 		
 		private IntWritable val = new IntWritable();
 		private Text text = new Text();
@@ -34,7 +34,7 @@ public class Temperature {
 		}
 	}
     
-	public static class WCReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
+	public static class TempReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
 		
 		private IntWritable result = new IntWritable();
 		
@@ -55,8 +55,8 @@ public class Temperature {
 		Configuration conf = new Configuration();
 		Job job = Job.getInstance(conf, "word count");
 		job.setJarByClass(Temperature.class);
-		job.setMapperClass(WCMapper.class);
-		job.setReducerClass(WCReducer.class);
+		job.setMapperClass(TempMapper.class);
+		job.setReducerClass(TempReducer.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
 		FileInputFormat.addInputPath(job, new Path(args[0]));
