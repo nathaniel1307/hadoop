@@ -40,9 +40,8 @@ public class Temperature {
 			
 			int tempMax = values.iterator().next().get();
 			if(values.iterator().hasNext()){
-				int tempDiff = tempMax - values.iterator().next().get();
-				IntWritable tempDiffIW = new IntWritable();
-				tempDiffIW.set(Math.abs(tempDiff));
+                IntWritable tempDiffIW = new IntWritable();
+				tempDiffIW.set(Math.abs(tempMax - values.iterator().next().get()));
 				
 				context.write(key, tempDiffIW);
 			}			
