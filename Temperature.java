@@ -12,25 +12,27 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import java.lang.Math;
 
 public class Temperature {
-	public static class WCMapper extends Mapper<Object, Text, Text, IntWritable>{	
-        
-        private Text keyField = new Text();
-        private IntWritable valueField = new IntWritable();
-
+    public static class WCMapper extends Mapper<Object, Text, Text, IntWritable>{
+		
+		private IntWritable val = new IntWritable();
+		private Text text = new Text();
 		
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-            String line = value.toString();
-            String[] record = line.split(",");
-            
-            if(record[0].equals("UK000056225") || record[0].equals("UK000003377")){
-				if(record[2].equals("TMAX") || record[2].equals("TMIN")){
-					keyField.set(record[0] + "-" + record[1] + "-" + record[2]);
-					valueField.set(Integer.parseInt(record[3]));
-					context.write(keyField, valueField);
+			
+			String Line = value.toString();
+			String[] SplitLine = Line.split(",");
+			
+			//Oxford Waddington
+			// Waddingotn  
+			if(SplitLine[0].equals("UK000056225") || SplitLine[0].equals("UK000003377")){
+				if(SplitLine[2].equals("TMAX") || SplitLine[2].equals("TMIN")){
+					text.set(SplitLine[0] + "-" + SplitLine[1]);
+					val.set(Integer.parseInt(SplitLine[3]));
+					context.write(text, val);
 				}
 			}
 		}
-    } 
+	}
     
 	public static class WCReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
 		
