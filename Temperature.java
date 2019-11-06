@@ -12,10 +12,10 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class Temperature {
 	public static class WCMapper extends Mapper<Object, Text, Text, IntWritable>{
-		private final static IntWritable one = new IntWritable(1);
+		//private final static IntWritable one = new IntWritable(1);
 		
-        private Text col1 = new Text();
-        private Text col2 = new Text();
+        private IntWritable val = new IntWritable();
+        private Text text = new Text();
 
 		
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
