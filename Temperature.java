@@ -35,16 +35,15 @@ public class Temperature {
 	public static class WCReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
 	
         private IntWritable result = new IntWritable();
-        private IntWritable tempDiffIW = new IntWritable();
+        //private IntWritable tempDiffIW = new IntWritable();
 		
 		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             //context.write(key, values.iterator().next());
             int temp1 = values.iterator().next().get();
 			if(values.iterator().hasNext()){
-				int tempDiff = temp1 - values.iterator().next().get();
-				
+                int tempDiff = temp1 - values.iterator().next().get();
+                IntWritable tempDiffIW = new IntWritable();
 				tempDiffIW.set(Math.abs(tempDiff));
-				
 				context.write(key, tempDiffIW);
 			}			
 		}
