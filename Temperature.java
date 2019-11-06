@@ -14,13 +14,17 @@ public class Temperature {
 	public static class WCMapper extends Mapper<Object, Text, Text, IntWritable>{
 		private final static IntWritable one = new IntWritable(1);
 		
-		//private Text word = new Text();
+        private Text col1 = new Text();
+        private Text col2 = new Text();
+
 		
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             String line = value.toString();
             String[] words = line.split(",");
-            if((words[0].equals("UK000056225"))|(words[0].equals("UK000003377"))){
-
+            if((words[0].equals("UK000056225"))||(words[0].equals("UK000003377"))){
+                Text.set(words[0]);
+                Text.set(words[1]);
+                context.write( col1 , col2 );
             }
 
 
