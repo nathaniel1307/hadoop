@@ -41,7 +41,7 @@ public class Temperature {
             //context.write(key, values.iterator().next());
             int temp1 = values.iterator().next().get();
 			if(values.iterator().hasNext()){
-				int TempDiff = temp1 - values.iterator().next().get();
+				int tempDiff = temp1 - values.iterator().next().get();
 				
 				tempDiffIW.set(Math.abs(tempDiff));
 				
