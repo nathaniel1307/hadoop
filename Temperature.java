@@ -21,9 +21,8 @@ public class Temperature {
 			
 			String Line = value.toString();
 			String[] SplitLine = Line.split(",");
-			
-			//Oxford Waddington
-			// Waddingotn  
+            
+            
 			if(SplitLine[0].equals("UK000056225") || SplitLine[0].equals("UK000003377")){
 				if(SplitLine[2].equals("TMAX") || SplitLine[2].equals("TMIN")){
 					text.set(SplitLine[0] + "-" + SplitLine[1]);
@@ -36,7 +35,7 @@ public class Temperature {
     
 	public static class TempReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
 		
-		private IntWritable result = new IntWritable();
+		//private IntWritable result = new IntWritable();
 		
 		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
 			
