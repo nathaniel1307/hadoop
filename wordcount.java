@@ -14,14 +14,16 @@ public class WordCount {
 	public static class WCMapper extends Mapper<Object, Text, Text, IntWritable>{
 		private final static IntWritable one = new IntWritable(1);
 		
-		private Text word = new Text();
+		//private Text word = new Text();
 		
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-			StringTokenizer itr = new StringTokenizer(value.toString());
-			while (itr.hasMoreTokens()) {
-				word.set(itr.nextToken());
-				context.write(word, one);
-			}
+            String line = value.toString();
+            String[] words = line.split(",");
+            if((words[0].equals("UK000056225"))|(words[0].equals("UK000003377"))){
+
+            }
+
+
 		}
 	} 
 	public static class WCReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
@@ -29,12 +31,12 @@ public class WordCount {
 		private IntWritable result = new IntWritable();
 		
 		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
-			int sum = 0;
-			for (IntWritable val : values) {
-				sum += val.get();
-			}
-			result.set(sum);
-			context.write(key, result);
+			// int sum = 0;
+			// for (IntWritable val : values) {
+			// 	sum += val.get();
+			// }
+			// result.set(sum);
+			context.write(key, null);
 		}
 	}
 
