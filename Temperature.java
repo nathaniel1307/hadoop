@@ -20,17 +20,19 @@ public class Temperature {
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 			
 			String[] rows = (value.toString()).split(",");
-            
+            float decimalnumber = (float) (Integer.parseInt(rows[3])/10);
+
+
 			if(rows[0].equals("UK000056225")){
 				if(rows[2].equals("TMAX") || rows[2].equals("TMIN")){
 					text.set("Oxford_" + rows[1].substring(6) + "/" + rows[1].substring(4,6) + "/" + rows[1].substring(0, 4));
-					val.set(Integer.parseInt(rows[3]));
+					val.set(decimalnumber);
 					context.write(text, val);
 				}
 			}else if(rows[0].equals("UK000003377")){
                 if(rows[2].equals("TMAX") || rows[2].equals("TMIN")){
 					text.set("Waddinton_" + rows[1].substring(6) + "/" + rows[1].substring(4,6) + "/" + rows[1].substring(0, 4));
-					val.set(Integer.parseInt(rows[3]));
+					val.set(decimalnumber);
 					context.write(text, val);
 				}
             }
