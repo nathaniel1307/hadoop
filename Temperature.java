@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -21,20 +20,19 @@ public class Temperature {
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 			
 			String[] rows = (value.toString()).split(",");
-            float decimalnumber = (float) (Integer.parseInt(rows[3]));
-            //decimalnumber = decimalnumber / 10;
+            float floatValue = (float) (Integer.parseInt(rows[3]));
 
 
 			if(rows[0].equals("UK000056225")){
 				if(rows[2].equals("TMAX") || rows[2].equals("TMIN")){
 					text.set("Oxford_" + rows[1].substring(6) + "/" + rows[1].substring(4,6) + "/" + rows[1].substring(0, 4));
-					val.set(decimalnumber);
+					val.set(floatValue);
 					context.write(text, val);
 				}
 			}else if(rows[0].equals("UK000003377")){
                 if(rows[2].equals("TMAX") || rows[2].equals("TMIN")){
 					text.set("Waddinton_" + rows[1].substring(6) + "/" + rows[1].substring(4,6) + "/" + rows[1].substring(0, 4));
-					val.set(decimalnumber);
+					val.set(floatValue);
 					context.write(text, val);
 				}
             }
@@ -49,7 +47,6 @@ public class Temperature {
 			if(values.iterator().hasNext()){
                 FloatWritable tempDifference = new FloatWritable();
                 tempDifference.set((Math.abs(tempMax - values.iterator().next().get()))/10);
-                //String.format("%.2f", tempDifference);
 				context.write(key, tempDifference);
 			}			
 		}
