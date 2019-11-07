@@ -20,7 +20,8 @@ public class Temperature {
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 			
 			String[] rows = (value.toString()).split(",");
-            float decimalnumber = (float) (Integer.parseInt(rows[3])/10);
+            float decimalnumber = (float) (Integer.parseInt(rows[3]));
+            decimalnumber = decimalnumber / 10;
 
 
 			if(rows[0].equals("UK000056225")){
