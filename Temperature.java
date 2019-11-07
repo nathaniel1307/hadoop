@@ -22,7 +22,7 @@ public class Temperature {
 			
 			String[] rows = (value.toString()).split(",");
             float decimalnumber = (float) (Integer.parseInt(rows[3]));
-            decimalnumber = decimalnumber / 10;
+            //decimalnumber = decimalnumber / 10;
 
 
 			if(rows[0].equals("UK000056225")){
@@ -48,8 +48,8 @@ public class Temperature {
 			float tempMax = values.iterator().next().get();
 			if(values.iterator().hasNext()){
                 FloatWritable tempDifference = new FloatWritable();
-                tempDifference.set(Math.abs(tempMax - values.iterator().next().get()));
-                String.format("%.2f", tempDifference);
+                tempDifference.set((Math.abs(tempMax - values.iterator().next().get()))/10);
+                //String.format("%.2f", tempDifference);
 				context.write(key, tempDifference);
 			}			
 		}
