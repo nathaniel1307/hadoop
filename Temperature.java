@@ -29,7 +29,7 @@ public class Temperature {
 				}
 			}else if(rows[0].equals("UK000003377")){
                 if(rows[2].equals("TMAX") || rows[2].equals("TMIN")){
-					text.set("Waddington_" + rows[1].substring(6) + "/" + rows[1].substring(4,6) + "/" + rows[1].substring(0, 4));
+					text.set("Waddinton_" + rows[1].substring(6) + "/" + rows[1].substring(4,6) + "/" + rows[1].substring(0, 4));
 					val.set(Integer.parseInt(rows[3]));
 					context.write(text, val);
 				}
