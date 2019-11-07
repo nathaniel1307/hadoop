@@ -14,7 +14,7 @@ import java.lang.Math;
 public class Temperature {
     public static class TempMapper extends Mapper<Object, Text, Text, IntWritable>{
 		
-		private IntWritable val = new IntWritable();
+		private FloatWritable val = new FloatWritable();
 		private Text text = new Text();
 		
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
