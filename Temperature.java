@@ -23,7 +23,7 @@ public class Temperature {
             
 			if(rows[0].equals("UK000056225") || rows[0].equals("UK000003377")){
 				if(rows[2].equals("TMAX") || rows[2].equals("TMIN")){
-					text.set(rows[0] + "-" + rows[1].substring(6) + "/" + rows[1].substring(4,6) + "/" + rows[1].substring(0, 4));
+					text.set(rows[0] + "_" + rows[1].substring(6) + "/" + rows[1].substring(4,6) + "/" + rows[1].substring(0, 4));
 					val.set(Integer.parseInt(rows[3]));
 					context.write(text, val);
 				}
