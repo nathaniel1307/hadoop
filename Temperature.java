@@ -41,7 +41,7 @@ public class Temperature {
 		}
 	}
     
-	public static class TempReducer extends Reducer<Text,IntWritable,Text,FloatWritable> {
+	public static class TempReducer extends Reducer<Text,FloatWritable,Text,FloatWritable> {
 
 		public void reduce(Text key, Iterable<FloatWritable> values, Context context) throws IOException, InterruptedException {
 			
