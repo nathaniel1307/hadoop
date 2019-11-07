@@ -48,7 +48,8 @@ public class Temperature {
 			float tempMax = values.iterator().next().get();
 			if(values.iterator().hasNext()){
                 FloatWritable tempDifference = new FloatWritable();
-				tempDifference.set(Math.abs(tempMax - values.iterator().next().get()));
+                tempDifference.set(Math.abs(tempMax - values.iterator().next().get()));
+                String.format("%.2f", tempDifference);
 				context.write(key, tempDifference);
 			}			
 		}
