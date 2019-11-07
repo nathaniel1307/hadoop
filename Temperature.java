@@ -13,7 +13,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import java.lang.Math;
 
 public class Temperature {
-    public static class TempMapper extends Mapper<Object, Text, Text, IntWritable>{
+    public static class TempMapper extends Mapper<Object, Text, Text, FloatWritable>{
 		
 		private FloatWritable val = new FloatWritable();
 		private Text text = new Text();
@@ -41,9 +41,9 @@ public class Temperature {
 		}
 	}
     
-	public static class TempReducer extends Reducer<Text,IntWritable,Text,IntWritable> {
+	public static class TempReducer extends Reducer<Text,IntWritable,Text,FloatWritable> {
 
-		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+		public void reduce(Text key, Iterable<FloatWritable> values, Context context) throws IOException, InterruptedException {
 			
 			int tempMax = values.iterator().next().get();
 			if(values.iterator().hasNext()){
@@ -62,7 +62,7 @@ public class Temperature {
 		job.setMapperClass(TempMapper.class);
 		job.setReducerClass(TempReducer.class);
 		job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(IntWritable.class);
+        job.setOutputValueClass(FloatWritable.class);
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 		System.exit(job.waitForCompletion(true) ? 0 : 1);
