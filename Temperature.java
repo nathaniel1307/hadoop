@@ -45,7 +45,7 @@ public class Temperature {
 
 		public void reduce(Text key, Iterable<FloatWritable> values, Context context) throws IOException, InterruptedException {
 			
-			int tempMax = values.iterator().next().get();
+			float tempMax = values.iterator().next().get();
 			if(values.iterator().hasNext()){
                 FloatWritable tempDifference = new FloatWritable();
 				tempDifference.set(Math.abs(tempMax - values.iterator().next().get()));
