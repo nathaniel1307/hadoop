@@ -52,7 +52,7 @@ public class Temperature {
 		job.setReducerClass(TempReducer.class);
 		job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-        job.set("mapred.textoutputformat.separatorText", ",");
+        job.set("mapred.textoutputformat.separator", ",");
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 		System.exit(job.waitForCompletion(true) ? 0 : 1);
