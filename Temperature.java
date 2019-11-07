@@ -45,14 +45,14 @@ public class Temperature {
 	}
 
 	public static void main(String[] args) throws Exception {
-		Configuration conf = new Configuration();
+        Configuration conf = new Configuration();
+        conf.set("mapred.textoutputformat.separator", ",");
 		Job job = Job.getInstance(conf, "Temperature");
 		job.setJarByClass(Temperature.class);
 		job.setMapperClass(TempMapper.class);
 		job.setReducerClass(TempReducer.class);
 		job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-        job.set("mapred.textoutputformat.separator", ",");
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 		System.exit(job.waitForCompletion(true) ? 0 : 1);
